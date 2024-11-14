@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.devsuperior.dslistgame.dto.GameDTO;
 import com.devsuperior.dslistgame.dto.GameMinDTO;
 import com.devsuperior.dslistgame.entities.Game;
+import com.devsuperior.dslistgame.projections.GameMinProjection;
 import com.devsuperior.dslistgame.repositories.GameRepository;
 
 
@@ -26,9 +27,15 @@ public class GameService {
 	}
 	
 	@Transactional(readOnly = true)
-	public GameDTO findById(@PathVariable Long id){
+	public GameDTO findById(Long id){
 		Game result = gameRepository.findById(id).get();
 		return new GameDTO(result);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<GameMinDTO> findByList(Long listId){
+		List<GameMinProjection> result = gameRepository.searchByList(listId);
+		return result.stream().map(GameMinDTO::new).toList();
 	}
 	
 
