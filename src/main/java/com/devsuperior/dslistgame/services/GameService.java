@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.devsuperior.dslistgame.dto.GameDTO;
 import com.devsuperior.dslistgame.dto.GameMinDTO;
+import com.devsuperior.dslistgame.dto.GameMinListDTO;
 import com.devsuperior.dslistgame.entities.Game;
 import com.devsuperior.dslistgame.projections.GameMinProjection;
 import com.devsuperior.dslistgame.repositories.GameRepository;
@@ -33,9 +33,9 @@ public class GameService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<GameMinDTO> findByList(Long listId){
+	public List<GameMinListDTO> findByList(Long listId){
 		List<GameMinProjection> result = gameRepository.searchByList(listId);
-		return result.stream().map(GameMinDTO::new).toList();
+		return result.stream().map(GameMinListDTO::new).toList();
 	}
 	
 
